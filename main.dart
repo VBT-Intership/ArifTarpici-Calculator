@@ -1,30 +1,31 @@
 import 'dart:io';
 
 void main() {
-  print("************* Hesap Makinesine Hoşgeldiniz *************");
+  print("************* Welcome To Calculator *************");
   var continuation = "y";
   var result;
   bool firstWorkOfCalculater = true;
   IOperation _operation;
   do {
-    print("Sayı Giriniz");
+    print("Enter Number");
     var countOne = int.parse(stdin.readLineSync());
 
-    print("---------- İşlemler ----------");
-    print("1-) Toplama");
-    print("2-) Çıkarma");
-    print("3-) Çarpma");
-    print("4-) Bölme");
+    print("---------- Operations ----------");
+    print("1-) Addition");
+    print("2-) Substraction");
+    print("3-) Multiplication");
+    print("4-) Division");
 
     var process = stdin.readLineSync();
-    stdout.write(
-        "------------------------------\nSeçilen İşlem :" + process + "\n");
+    stdout.write("------------------------------\nSelected Operation :" +
+        process +
+        "\n");
 
     // only work once if block
     checkFirstWorkOrNot(firstWorkOfCalculater, process, result);
     // only work once if block
 
-    print("Sayı Giriniz");
+    print("Enter Number");
     var countTwo = int.parse(stdin.readLineSync());
 
     switch (process) {
@@ -33,7 +34,7 @@ void main() {
         result = _operation.Processor();
         break;
       case "2":
-        _operation = new Substract(countOne, countTwo);
+        _operation = new Substraction(countOne, countTwo);
         result = _operation.Processor();
         break;
       case "3":
@@ -53,15 +54,15 @@ void main() {
         continuation = "n";
         break;
       default:
-        print("Geçersiz İşlem");
+        print("Invalid Operation");
         break;
     }
 
     print("\n" +
         _operation.OperationName +
-        " Hesaplaması Sonucu: " +
+        " Calculation Result: " +
         result.toString());
-    print("\nDevam Etmek İstiyor Musunuz? (y/n): ");
+    print("\nDo You Want To Continue? (y/n): ");
     continuation = stdin.readLineSync();
   } while (continuation == "y");
 }
@@ -78,7 +79,7 @@ class IOperation {
 // operator classes
 class Addition implements IOperation {
   @override
-  String OperationName = "Toplama";
+  String OperationName = "Addition";
   @override
   int countOne;
   @override
@@ -95,15 +96,15 @@ class Addition implements IOperation {
   }
 }
 
-class Substract implements IOperation {
+class Substraction implements IOperation {
   @override
-  String OperationName = "Çıkarma";
+  String OperationName = "Substraction";
   @override
   int countOne;
   @override
   int countTwo;
 
-  Substract(_countOne, _countTwo) {
+  Substraction(_countOne, _countTwo) {
     this.countOne = _countOne;
     this.countTwo = _countTwo;
   }
@@ -116,7 +117,7 @@ class Substract implements IOperation {
 
 class Multiplication implements IOperation {
   @override
-  String OperationName = "Çarpma";
+  String OperationName = "Multiplication";
   @override
   int countOne;
   @override
@@ -135,7 +136,7 @@ class Multiplication implements IOperation {
 
 class Division implements IOperation {
   @override
-  String OperationName = "Bölme";
+  String OperationName = "Division";
   @override
   int countOne;
   @override
@@ -172,6 +173,6 @@ checkFirstWorkOrNot(firstWorkOfCalculater, process, result) {
 
 // custom exception
 class VBTIntegerDoesNotDivisionByZeroException implements Exception {
-  String errorNessage() => "0'a Bölünme Hatası Oluştu VBT";
+  String errorNessage() => "A Divide By 0 Error Occurred VBT";
 }
 // custom exception
